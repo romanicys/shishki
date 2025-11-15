@@ -16,7 +16,10 @@ export function MediaGrid({ medias }: { medias: MediaItem[] }) {
   return (
     <div className="grid gap-4 md:grid-cols-3">
       {filteredMedias.map((media) => (
-        <div key={media.id} className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-slate-900">
+        <div
+          key={media.id}
+          className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl border border-[var(--border)] bg-white/80 shadow-[0_20px_60px_-50px_rgba(24,21,19,0.4)]"
+        >
           {media.type === "video" ? (
             <video
               src={media.url!}

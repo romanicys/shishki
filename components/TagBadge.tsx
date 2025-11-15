@@ -5,7 +5,7 @@ export function TagBadge({ tag }: { tag: BasicTag }) {
   return (
     <Link
       href={`/posts?tag=${encodeURIComponent(tag.slug)}`}
-      className="border border-black/10 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.4em] text-black transition hover:underline"
+      className="rounded-full border border-[var(--border)] px-3 py-1 text-[0.65rem] uppercase tracking-[0.45em] text-[var(--muted)] transition hover:border-[var(--accent)] hover:text-[var(--foreground)]"
     >
       {tag.name}
     </Link>

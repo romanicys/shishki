@@ -26,7 +26,7 @@ export function Hero({
   secondary,
 }: HeroProps) {
   return (
-    <section className="relative h-[520px] w-full overflow-hidden">
+    <section className="relative isolate flex h-[540px] w-full overflow-hidden rounded-[40px] bg-[var(--foreground)] text-white shadow-[0_45px_120px_-60px_rgba(17,16,14,0.65)]">
       {image && (
         <Image
           src={image}
@@ -37,27 +37,31 @@ export function Hero({
           priority
         />
       )}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-      <div className="absolute bottom-10 left-10 flex max-w-2xl flex-col gap-4 text-white">
+      <div className="absolute inset-0 bg-gradient-to-tr from-black/75 via-black/30 to-transparent" />
+      <div className="relative z-10 mt-auto flex w-full flex-col gap-6 px-8 pb-12 pt-24 sm:px-12">
         {eyebrow && (
-          <span className="text-xs font-light uppercase tracking-[0.6em]">
+          <span className="w-fit rounded-full bg-white/10 px-4 py-1 text-[0.65rem] uppercase tracking-[0.55em]">
             {eyebrow}
           </span>
         )}
-        <h1 className="text-5xl font-medium tracking-tight">{headline}</h1>
-        <p className="text-base font-light leading-relaxed">{description}</p>
-        <div className="flex items-center gap-6 text-xs font-medium uppercase tracking-[0.4em]">
-          <Link href={primary.href} className="underline">
+        <h1 className="font-display text-5xl leading-tight tracking-[-0.02em] sm:text-6xl">
+          {headline}
+        </h1>
+        <p className="max-w-2xl text-base leading-relaxed text-white/85 sm:text-lg">
+          {description}
+        </p>
+        <div className="flex flex-wrap items-center gap-6 text-[0.7rem] uppercase tracking-[0.45em]">
+          <Link href={primary.href} className="border-b border-white/60 pb-1 transition hover:border-white">
             {primary.label}
           </Link>
           {secondary && (
-            <Link href={secondary.href} className="underline">
+            <Link href={secondary.href} className="border-b border-white/40 pb-1 text-white/80 transition hover:border-white hover:text-white">
               {secondary.label}
             </Link>
           )}
         </div>
         {byline && (
-          <span className="text-[0.65rem] uppercase tracking-[0.5em] text-white/70">
+          <span className="text-[0.65rem] uppercase tracking-[0.5em] text-white/60">
             {byline}
           </span>
         )}
