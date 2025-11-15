@@ -39,7 +39,7 @@ export default async function FilmsPage({ searchParams }: FilmsPageProps) {
   };
 
   return (
-    <div className="flex flex-col gap-12 py-8">
+    <div className="flex flex-col gap-12">
       <SectionHeading
         eyebrow="Фокус киноархива"
         title="Архив кадр за кадром"

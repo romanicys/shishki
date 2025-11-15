@@ -17,14 +17,14 @@ export default async function PostDetailPage({ params }: PostDetailPageProps) {
 
   const post = await getPostBySlug(slug);
   if (!post) {
-    return <p className="p-4 text-center text-white">Пост не найден.</p>;
+    return <p className="p-6 text-center text-slate-200">Пост не найден.</p>;
   }
   const galleryMedias = post.heroImage
     ? post.medias.filter((media) => media.url !== post.heroImage)
     : post.medias;
 
   return (
-    <div className="mx-auto flex max-w-4xl flex-col gap-8 px-4 py-10 text-slate-100">
+    <div className="mx-auto flex max-w-4xl flex-col gap-8 text-slate-100">
       <div className="flex flex-col gap-3">
         <div className="flex flex-wrap items-center gap-3">
           <p className="text-xs uppercase tracking-[0.4em] text-amber-300">{post.type}</p>

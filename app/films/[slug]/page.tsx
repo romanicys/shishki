@@ -16,11 +16,11 @@ export default async function FilmDetailPage({ params }: FilmDetailPageProps) {
 
   const film = await getFilmBySlug(slug);
   if (!film) {
-    return <p className="p-4 text-center text-white">Фильм не найден.</p>;
+    return <p className="p-6 text-center text-slate-200">Фильм не найден.</p>;
   }
 
   return (
-    <div className="mx-auto flex max-w-5xl flex-col gap-8 px-4 py-10 text-slate-100">
+    <div className="mx-auto flex max-w-5xl flex-col gap-10 text-slate-100">
       <div className="flex flex-col gap-2">
         <p className="text-xs uppercase tracking-[0.4em] text-amber-300">Фильм</p>
         <h1 className="text-4xl font-semibold text-white">{film.localizedTitle ?? film.title}</h1>

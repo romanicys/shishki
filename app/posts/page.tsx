@@ -38,7 +38,7 @@ export default async function PostsPage({ searchParams }: PostsPageProps) {
   };
 
   return (
-    <div className="flex flex-col gap-8 py-6">
+    <div className="flex flex-col gap-8">
       <SectionHeading
         eyebrow="Посты"
         title="Рецензии, подборки и истории"
