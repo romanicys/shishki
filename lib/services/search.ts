@@ -13,9 +13,9 @@ export async function searchCatalog(query: string): Promise<SearchResultDto[]> {
     prisma.post.findMany({
       where: {
         OR: [
-          { title: { contains: term } },
-          { subtitle: { contains: term } },
-          { body: { contains: term } },
+          { title: { contains: term, mode: "insensitive" } },
+          { subtitle: { contains: term, mode: "insensitive" } },
+          { body: { contains: term, mode: "insensitive" } },
         ],
       },
       orderBy: {
@@ -26,12 +26,13 @@ export async function searchCatalog(query: string): Promise<SearchResultDto[]> {
     prisma.film.findMany({
       where: {
         OR: [
-          { title: { contains: term } },
-          { localizedTitle: { contains: term } },
-          { originalTitle: { contains: term } },
-          { normalizedTitle: { contains: term } },
-          { description: { contains: term } },
-          { synopsis: { contains: term } },
+          { title: { contains: term, mode: "insensitive" } },
+          { localizedTitle: { contains: term, mode: "insensitive" } },
+          { originalTitle: { contains: term, mode: "insensitive" } },
+          { normalizedTitle: { contains: term, mode: "insensitive" } },
+          { searchTitle: { contains: term, mode: "insensitive" } },
+          { description: { contains: term, mode: "insensitive" } },
+          { synopsis: { contains: term, mode: "insensitive" } },
         ],
       },
       take: DEFAULT_LIMIT,
@@ -39,8 +40,8 @@ export async function searchCatalog(query: string): Promise<SearchResultDto[]> {
     prisma.tag.findMany({
       where: {
         OR: [
-          { name: { contains: term } },
-          { slug: { contains: term } },
+          { name: { contains: term, mode: "insensitive" } },
+          { slug: { contains: term, mode: "insensitive" } },
         ],
       },
       take: DEFAULT_LIMIT,
@@ -48,8 +49,8 @@ export async function searchCatalog(query: string): Promise<SearchResultDto[]> {
     prisma.rubric.findMany({
       where: {
         OR: [
-          { title: { contains: term } },
-          { description: { contains: term } },
+          { title: { contains: term, mode: "insensitive" } },
+          { description: { contains: term, mode: "insensitive" } },
         ],
       },
       orderBy: {
