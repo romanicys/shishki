@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { PostType } from "@prisma/client";
 import { PostCardDto, PostDetailDto, PostEntities } from "@/types/api";
 import { getAssetUrl } from "@/lib/assets";
+import { resolvePage, resolvePageSize } from "./pagination";
 
 const DEFAULT_PAGE_SIZE = 12;
 
@@ -54,8 +55,8 @@ type PostListFilters = {
 };
 
 export async function getPosts(filters: PostListFilters) {
-  const page = Math.max(1, filters.page ?? 1);
-  const pageSize = Math.min(DEFAULT_PAGE_SIZE, Math.max(1, filters.pageSize ?? DEFAULT_PAGE_SIZE));
+  const page = resolvePage(filters.page);
+  const pageSize = resolvePageSize(filters.pageSize, DEFAULT_PAGE_SIZE);
   const where: Prisma.PostWhereInput = {};
 
   if (filters.type) {
@@ -78,12 +79,12 @@ export async function getPosts(filters: PostListFilters) {
   if (filters.query) {
     const term = filters.query.trim();
     if (term) {
-    where.OR = [
-      { title: { contains: term } },
-      { body: { contains: term } },
-      { excerpt: { contains: term } },
-    ];
-  }
+      where.OR = [
+        { title: { contains: term } },
+        { body: { contains: term } },
+        { excerpt: { contains: term } },
+      ];
+    }
   }
 
   const total = await prisma.post.count({ where });

@@ -2,6 +2,7 @@ import type { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { getAssetUrl } from "@/lib/assets";
 import { FilmCardDto, FilmDetailDto } from "@/types/api";
+import { resolvePage, resolvePageSize } from "./pagination";
 
 const DEFAULT_PAGE_SIZE = 12;
 
@@ -14,8 +15,8 @@ type FilmFilters = {
 };
 
 export async function getFilms(filters: FilmFilters) {
-  const page = Math.max(1, filters.page ?? 1);
-  const pageSize = Math.min(DEFAULT_PAGE_SIZE, Math.max(1, filters.pageSize ?? DEFAULT_PAGE_SIZE));
+  const page = resolvePage(filters.page);
+  const pageSize = resolvePageSize(filters.pageSize, DEFAULT_PAGE_SIZE);
   const where: Prisma.FilmWhereInput = {};
 
   if (filters.tag) {
@@ -27,18 +28,18 @@ export async function getFilms(filters: FilmFilters) {
       },
     };
   }
-  if (filters.year) {
-    where.year = filters.year;
+  if (typeof filters.year === "number" && Number.isFinite(filters.year)) {
+    where.year = Math.trunc(filters.year);
   }
   if (filters.query) {
     const term = filters.query.trim();
     if (term) {
-    where.OR = [
-      { title: { contains: term } },
-      { description: { contains: term } },
-      { synopsis: { contains: term } },
-    ];
-  }
+      where.OR = [
+        { title: { contains: term } },
+        { description: { contains: term } },
+        { synopsis: { contains: term } },
+      ];
+    }
   }
 
   const total = await prisma.film.count({ where });
