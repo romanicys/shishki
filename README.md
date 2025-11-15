@@ -30,6 +30,9 @@ cp .env.example .env
 - `DATABASE_URL` — путь до SQLite файла (`file:./prisma/dev.db`).
 - `ASSET_BASE_URL` — адрес для отдачи изображений (локально `http://localhost:3000`).
 - `IMPORT_JSON_PATH` / `IMPORT_MEDIA_DIR` — пути к JSON и папке c изображениями из Telegram.
+- `TMDB_API_KEY` — (опционально) ключ TMDB v3 для обогащения фильмов.
+- `TELEGRAM_ETL_OUT` — каталог для выгрузки RAW/PARSED датасетов (`data/etl`).
+- `TELEGRAM_ETL_SINCE` / `TELEGRAM_ETL_LIMIT` — ограничения для выборки при ETL.
 
 ## Запуск в разработке
 ```bash
@@ -51,13 +54,18 @@ npm run dev
 | `npm run db:seed`     | Запуск `prisma/seed.ts` |
 | `npm run import`      | Импорт данных (будет реализован на этапе 3) |
 
-## Импорт данных из Telegram
+## Импорт и ETL данных из Telegram
 1. Поместите JSON с экспортом Telegram и папку с изображениями (структура как в оригинальном архиве).
 2. Укажите пути в `.env` (`IMPORT_JSON_PATH`, `IMPORT_MEDIA_DIR`) или передайте флаги:
    ```bash
    npm run import -- --json ./path/to/media_metadata.json --media ./path/to/media_folder
    ```
-3. Скрипт:
+3. Для построения RAW/PARSED датасетов и первичного анализа:
+   ```bash
+   npm run telegram:etl -- --json ./path/to/media_metadata.json --out ./data/etl
+   ```
+   Скрипт создаст NDJSON-файлы (`raw_posts`, `parsed_posts`, `films`, `topics`) и подготовит данные к загрузке в Postgres.
+4. Скрипт импорта в Prisma:
    - группирует записи по `message_id`,
    - определяет тип поста (обзор/новость/галерея),
    - извлекает теги по хэштегам,

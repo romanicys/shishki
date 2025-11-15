@@ -11,7 +11,8 @@
     "db:migrate": "prisma migrate dev",
     "db:push": "prisma db push",
     "db:seed": "tsx prisma/seed.ts",
-    "import": "tsx scripts/import-json.ts"
+    "import": "tsx scripts/import-json.ts",
+    "telegram:etl": "tsx scripts/telegram-etl.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.0",
