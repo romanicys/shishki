@@ -1,0 +1,20 @@
+# Ignore media folders
+public/images
+
+# Ignore heavy media files
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.mp4
+*.mov
+
+# Allow icons (UI assets)
+!public/icons/
+
+
+# системные файлы
+.DS_Store
+node_modules/
+.next/
+.env

@@ -1,0 +1,165 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum PostType {
+  ARTICLE
+  REVIEW
+  NEWS
+  GALLERY
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+}
+
+enum TagType {
+  THEME
+  GENRE
+  PERSON
+  COUNTRY
+}
+
+model Post {
+  id          Int        @id @default(autoincrement())
+  slug        String     @unique
+  title       String
+  subtitle    String?
+  type        PostType   @default(ARTICLE)
+  body        String
+  excerpt     String?
+  publishedAt DateTime
+  sourceId    String?
+  heroImage   String?
+  entities    Json?
+
+  tags        PostTag[]
+  postFilms   PostFilm[]
+  medias      Media[]
+  rubricId    Int?
+  rubric      Rubric?    @relation(fields: [rubricId], references: [id])
+
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@index([publishedAt])
+  @@index([rubricId])
+}
+
+model Film {
+  id             Int        @id @default(autoincrement())
+  slug           String     @unique
+  title          String
+  localizedTitle String?
+  normalizedTitle String?
+  originalTitle  String?
+  description    String?
+  synopsis       String?
+  year           Int?
+  runtime        Int?
+  countries      String?
+  genres         String?
+  rating         Float?
+  posterImageId  Int?       @unique
+  externalId     String?
+  externalSource String?
+  similarFilmIds Json?
+  searchTitle    String?    @unique
+
+  posterImage    Media?     @relation("FilmPoster", fields: [posterImageId], references: [id])
+  medias         Media[]    @relation("FilmMedias")
+  tags           FilmTag[]
+  postLinks      PostFilm[]
+
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  @@index([year])
+  @@index([rating])
+  @@index([normalizedTitle])
+}
+
+model Media {
+  id          Int        @id @default(autoincrement())
+  type        MediaType  @default(IMAGE)
+  fileName    String     @unique
+  alt         String?
+  width       Int?
+  height      Int?
+  dominantHex String?
+  sortOrder   Int        @default(0)
+
+  postId      Int?
+  post        Post?      @relation(fields: [postId], references: [id])
+
+  filmId      Int?
+  film        Film?      @relation("FilmMedias", fields: [filmId], references: [id])
+
+  posterFor   Film?      @relation("FilmPoster")
+
+  createdAt   DateTime   @default(now())
+}
+
+model Tag {
+  id        Int       @id @default(autoincrement())
+  slug      String    @unique
+  name      String
+  type      TagType   @default(THEME)
+
+  postTags  PostTag[]
+  filmTags  FilmTag[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model PostTag {
+  postId Int
+  tagId  Int
+
+  post   Post @relation(fields: [postId], references: [id])
+  tag    Tag  @relation(fields: [tagId], references: [id])
+
+  @@id([postId, tagId])
+}
+
+model FilmTag {
+  filmId Int
+  tagId  Int
+
+  film   Film @relation(fields: [filmId], references: [id])
+  tag    Tag  @relation(fields: [tagId], references: [id])
+
+  @@id([filmId, tagId])
+}
+
+model PostFilm {
+  postId       Int
+  filmId       Int
+  relationType String?
+  highlight    Boolean   @default(false)
+
+  post         Post @relation(fields: [postId], references: [id])
+  film         Film @relation(fields: [filmId], references: [id])
+
+  @@id([postId, filmId])
+}
+
+model Rubric {
+  id          Int      @id @default(autoincrement())
+  slug        String   @unique
+  title       String
+  description String?
+  sortOrder   Int      @default(0)
+
+  posts       Post[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

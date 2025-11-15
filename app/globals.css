@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "SpaceGroteskLocal";
+  src: url("/fonts/SpaceGrotesk-VariableFont_wght.ttf") format("truetype");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 300 700;
+}
+
+@font-face {
+  font-family: "PlayfairDisplayLocal";
+  src: url("/fonts/PlayfairDisplay-VariableFont_wght.ttf") format("truetype");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400 700;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #000000;
+  --muted: rgba(0, 0, 0, 0.6);
+  --font-sans: "SpaceGroteskLocal", "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  --font-display: "PlayfairDisplayLocal", "Playfair Display", "Times New Roman", serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  margin: 0;
+  position: relative;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+::selection {
+  background: rgba(250, 204, 21, 0.4);
+  color: #020617;
+}
