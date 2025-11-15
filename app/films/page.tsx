@@ -51,7 +51,7 @@ export default async function FilmsPage({ searchParams }: FilmsPageProps) {
           <Link
             key={item.id}
             href={`/films?tag=${item.slug}`}
-            className="rounded-full border border-white/10 px-3 py-1 text-[0.65rem] uppercase tracking-[0.5em] text-slate-300 transition hover:border-amber-400 hover:text-amber-200"
+            className="rounded-full border border-[var(--border)] bg-white/70 px-4 py-2 text-[0.65rem] uppercase tracking-[0.45em] text-[var(--muted)] transition hover:border-[var(--accent)] hover:text-[var(--foreground)]"
           >
             {item.name}
           </Link>
@@ -64,14 +64,14 @@ export default async function FilmsPage({ searchParams }: FilmsPageProps) {
         ))}
       </div>
 
-      <div className="flex flex-wrap items-center justify-between gap-4 text-xs uppercase tracking-[0.45em] text-slate-400">
+      <div className="flex flex-wrap items-center justify-between gap-4 text-xs uppercase tracking-[0.45em] text-[var(--muted)]/70">
         <span>
           Страница {films.page} из {films.pages}
         </span>
         <div className="flex gap-3">
           {films.page > 1 && (
             <Link
-              className="border-b border-white/30 pb-1 text-slate-300 hover:text-white"
+              className="border-b border-[var(--border)] pb-1 text-[var(--muted)] transition hover:border-[var(--accent)] hover:text-[var(--foreground)]"
               href={buildHref(films.page - 1)}
             >
               Назад
@@ -79,7 +79,7 @@ export default async function FilmsPage({ searchParams }: FilmsPageProps) {
           )}
           {films.page < films.pages && (
             <Link
-              className="border-b border-white/30 pb-1 text-slate-300 hover:text-white"
+              className="border-b border-[var(--border)] pb-1 text-[var(--muted)] transition hover:border-[var(--accent)] hover:text-[var(--foreground)]"
               href={buildHref(films.page + 1)}
             >
               Вперед

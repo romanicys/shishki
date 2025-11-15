@@ -15,7 +15,7 @@ export function FilmCard({ film }: FilmCardProps) {
   return (
     <Link
       href={`/films/${film.slug}`}
-      className="group block border border-black/5 bg-white transition hover:scale-[1.02]"
+      className="group relative block overflow-hidden rounded-3xl border border-[var(--border)] bg-white/70 shadow-[0_25px_60px_-55px_rgba(24,21,19,0.65)] transition-transform duration-500 hover:-translate-y-1 hover:shadow-[0_40px_100px_-60px_rgba(24,21,19,0.6)]"
     >
       <div className="relative h-[420px] w-full overflow-hidden">
         {film.poster && film.posterType !== "video" ? (
@@ -24,7 +24,7 @@ export function FilmCard({ film }: FilmCardProps) {
             alt={film.title}
             fill
             sizes="(max-width: 768px) 100vw, 33vw"
-            className="object-cover transition duration-300 group-hover:scale-105"
+            className="object-cover transition duration-700 group-hover:scale-110"
             priority={false}
           />
         ) : film.poster ? (
@@ -37,27 +37,27 @@ export function FilmCard({ film }: FilmCardProps) {
             playsInline
           />
         ) : (
-          <div className="flex h-full items-center justify-center bg-black/5 text-sm uppercase tracking-[0.5em] text-black/50">
+          <div className="flex h-full items-center justify-center bg-[var(--background)] text-xs uppercase tracking-[0.5em] text-[var(--muted)]">
             Изображение
           </div>
         )}
       </div>
-      <div className="flex flex-col gap-2 border-t border-black/10 px-4 py-5">
+      <div className="flex flex-col gap-3 border-t border-[var(--border)] bg-white/80 px-6 py-6 backdrop-blur">
         {leadTag && (
-          <span className="text-[0.65rem] uppercase tracking-[0.5em] text-black/40">
+          <span className="text-[0.65rem] uppercase tracking-[0.5em] text-[var(--muted)]/70">
             {leadTag}
           </span>
         )}
-        <h3 className="text-2xl font-medium tracking-tight">
+        <h3 className="font-display text-2xl leading-snug tracking-[-0.01em] text-[var(--foreground)]">
           {displayTitle}
         </h3>
         {subtitle && (
-          <p className="text-xs uppercase tracking-[0.4em] text-black/40">
+          <p className="text-[0.65rem] uppercase tracking-[0.45em] text-[var(--muted-soft)]">
             {subtitle}
           </p>
         )}
         {accentTags.length > 0 && (
-          <p className="text-xs uppercase tracking-[0.4em] text-black/40">
+          <p className="text-[0.65rem] uppercase tracking-[0.45em] text-[var(--muted-soft)]">
             {accentTags.join(" / ")}
           </p>
         )}

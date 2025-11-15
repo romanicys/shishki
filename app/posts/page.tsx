@@ -38,24 +38,24 @@ export default async function PostsPage({ searchParams }: PostsPageProps) {
   };
 
   return (
-    <div className="flex flex-col gap-8 py-6">
+    <div className="flex flex-col gap-10 py-6">
       <SectionHeading
         eyebrow="Посты"
         title="Рецензии, подборки и истории"
         description={tag ? `Фильтр по тегу #${tag}` : "Последние заметки из телеграм-архива"}
       />
       {tag && (
-        <div className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.45em] text-slate-200">
+        <div className="inline-flex items-center gap-3 rounded-full border border-[var(--border)] bg-white/70 px-4 py-2 text-xs uppercase tracking-[0.45em] text-[var(--muted)]">
           тег
-          <span className="rounded-full border border-white/10 bg-slate-900 px-3 py-1 text-[0.6rem]">
+          <span className="rounded-full border border-[var(--border)] bg-white/90 px-3 py-1 text-[0.6rem] text-[var(--foreground)]">
             #{tag}
           </span>
         </div>
       )}
       {rubric && (
-        <div className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.45em] text-slate-200">
+        <div className="inline-flex items-center gap-3 rounded-full border border-[var(--border)] bg-white/70 px-4 py-2 text-xs uppercase tracking-[0.45em] text-[var(--muted)]">
           рубрика
-          <span className="rounded-full border border-white/10 bg-slate-900 px-3 py-1 text-[0.6rem]">
+          <span className="rounded-full border border-[var(--border)] bg-white/90 px-3 py-1 text-[0.6rem] text-[var(--foreground)]">
             {rubric}
           </span>
         </div>
@@ -66,7 +66,7 @@ export default async function PostsPage({ searchParams }: PostsPageProps) {
           <Link
             key={item.id}
             href={`/posts?tag=${item.slug}`}
-            className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-slate-200 transition hover:border-amber-400 hover:text-amber-200"
+            className="rounded-full border border-[var(--border)] bg-white/70 px-4 py-2 text-xs uppercase tracking-[0.45em] text-[var(--muted)] transition hover:border-[var(--accent)] hover:text-[var(--foreground)]"
           >
             #{item.name}
           </Link>
@@ -81,7 +81,7 @@ export default async function PostsPage({ searchParams }: PostsPageProps) {
             <Link
               key={item.id}
               href={`/posts?${params.toString()}`}
-              className="rounded-full border border-white/10 px-3 py-1 text-[0.65rem] uppercase tracking-[0.4em] text-slate-200 transition hover:border-amber-300"
+              className="rounded-full border border-[var(--border)] bg-white/60 px-4 py-2 text-[0.65rem] uppercase tracking-[0.45em] text-[var(--muted)] transition hover:border-[var(--accent)] hover:text-[var(--foreground)]"
             >
               {item.title}
             </Link>
@@ -95,14 +95,14 @@ export default async function PostsPage({ searchParams }: PostsPageProps) {
         ))}
       </div>
 
-      <div className="flex items-center justify-between text-sm text-slate-300">
-        <span>
+      <div className="flex flex-wrap items-center justify-between gap-3 text-xs uppercase tracking-[0.45em] text-[var(--muted)]/70">
+        <span className="normal-case tracking-normal text-[var(--muted)]/80">
           Страница {posts.page} из {posts.pages}
         </span>
         <div className="flex gap-3">
           {posts.page > 1 && (
             <Link
-              className="rounded-full border px-3 py-1 text-xs hover:border-amber-400"
+              className="rounded-full border border-[var(--border)] px-4 py-2 text-[0.65rem] uppercase tracking-[0.4em] text-[var(--muted)] transition hover:border-[var(--accent)] hover:text-[var(--foreground)]"
               href={buildPageHref(posts.page - 1)}
             >
               Назад
@@ -110,7 +110,7 @@ export default async function PostsPage({ searchParams }: PostsPageProps) {
           )}
           {posts.page < posts.pages && (
             <Link
-              className="rounded-full border px-3 py-1 text-xs hover:border-amber-400"
+              className="rounded-full border border-[var(--border)] px-4 py-2 text-[0.65rem] uppercase tracking-[0.4em] text-[var(--muted)] transition hover:border-[var(--accent)] hover:text-[var(--foreground)]"
               href={buildPageHref(posts.page + 1)}
             >
               Вперед

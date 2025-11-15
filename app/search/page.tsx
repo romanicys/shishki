@@ -12,38 +12,38 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 
   if (!query) {
     return (
-      <div className="mx-auto flex max-w-4xl flex-col items-center justify-center gap-4 px-4 py-10 text-slate-300">
-        <p className="text-xl text-white">Введите запрос в поисковую строку.</p>
-        <p>Я найду посты, фильмы и теги по ключевым словам.</p>
+      <div className="mx-auto flex max-w-3xl flex-col items-center justify-center gap-4 px-4 py-12 text-center text-[var(--muted)]">
+        <p className="font-display text-3xl text-[var(--foreground)]">Введите запрос в поисковую строку.</p>
+        <p className="text-sm leading-relaxed text-[var(--muted)]/80">
+          Я найду посты, фильмы и теги по ключевым словам.
+        </p>
       </div>
     );
   }
 
   return (
-    <div className="mx-auto flex max-w-4xl flex-col gap-6 px-4 py-10 text-slate-100">
-      <div className="flex flex-col gap-1">
-        <p className="text-sm uppercase tracking-[0.4em] text-amber-300">Поиск</p>
-        <h1 className="text-3xl font-semibold text-white">Результаты по «{query}»</h1>
+    <div className="mx-auto flex max-w-4xl flex-col gap-8 px-4 py-12">
+      <div className="flex flex-col gap-2">
+        <p className="text-xs uppercase tracking-[0.45em] text-[var(--muted)]/70">Поиск</p>
+        <h1 className="font-display text-4xl text-[var(--foreground)]">Результаты по «{query}»</h1>
       </div>
 
-      {results.length === 0 && (
-        <p className="text-slate-300">По запросу ничего не найдено.</p>
-      )}
+      {results.length === 0 && <p className="text-sm text-[var(--muted)]">По запросу ничего не найдено.</p>}
 
       <div className="grid gap-4">
         {results.map((item) => (
           <Link
             key={`${item.type}-${item.link}`}
             href={item.link}
-            className="rounded-2xl border border-white/10 bg-slate-900/60 p-4 hover:border-amber-400/70"
+            className="rounded-3xl border border-[var(--border)] bg-white/70 p-5 shadow-[0_20px_60px_-50px_rgba(24,21,19,0.45)] transition hover:border-[var(--accent)]"
           >
-            <div className="flex items-center justify-between">
-              <p className="text-sm uppercase tracking-[0.3em] text-amber-300">{item.type}</p>
-              {item.subtitle && <span className="text-xs text-slate-400">{item.subtitle}</span>}
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <p className="text-xs uppercase tracking-[0.4em] text-[var(--muted)]/80">{item.type}</p>
+              {item.subtitle && <span className="text-xs text-[var(--muted)]/65">{item.subtitle}</span>}
             </div>
-            <p className="text-lg font-semibold text-white">{item.title}</p>
+            <p className="font-display text-2xl text-[var(--foreground)]">{item.title}</p>
             {item.subtitle && (
-              <p className="text-sm text-slate-400">{item.subtitle}</p>
+              <p className="text-sm leading-relaxed text-[var(--muted)]/80">{item.subtitle}</p>
             )}
           </Link>
         ))}

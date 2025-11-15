@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { Search } from 'lucide-react';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Search } from "lucide-react";
 
 export function SearchBar() {
   const [query, setQuery] = useState('');
@@ -16,14 +16,17 @@ export function SearchBar() {
   };
 
   return (
-    <form onSubmit={handleSearch} className="flex w-full items-center gap-3 border-b border-black/10 pb-1">
-      <Search className="h-4 w-4 text-black/60" />
+    <form
+      onSubmit={handleSearch}
+      className="group flex w-full items-center gap-3 border-b border-[var(--border)] pb-2"
+    >
+      <Search className="h-4 w-4 text-[var(--muted-soft)] transition-colors group-focus-within:text-[var(--foreground)]" />
       <input
         type="text"
-        placeholder="Search"
+        placeholder="Поиск"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        className="flex-1 bg-transparent text-sm uppercase tracking-[0.4em] outline-none placeholder:text-black/30"
+        className="flex-1 bg-transparent text-xs uppercase tracking-[0.4em] text-[var(--foreground)] outline-none placeholder:text-[var(--muted)]/60"
       />
     </form>
   );

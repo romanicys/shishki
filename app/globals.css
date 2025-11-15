@@ -1,28 +1,13 @@
 @import "tailwindcss";
 
-@font-face {
-  font-family: "SpaceGroteskLocal";
-  src: url("/fonts/SpaceGrotesk-VariableFont_wght.ttf") format("truetype");
-  font-display: swap;
-  font-style: normal;
-  font-weight: 300 700;
-}
-
-@font-face {
-  font-family: "PlayfairDisplayLocal";
-  src: url("/fonts/PlayfairDisplay-VariableFont_wght.ttf") format("truetype");
-  font-display: swap;
-  font-style: normal;
-  font-weight: 400 700;
-}
-
 :root {
-  --background: #ffffff;
-  --foreground: #000000;
-  --muted: rgba(0, 0, 0, 0.6);
-  --font-sans: "SpaceGroteskLocal", "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", sans-serif;
-  --font-display: "PlayfairDisplayLocal", "Playfair Display", "Times New Roman", serif;
+  color-scheme: light;
+  --background: #f5f1eb;
+  --foreground: #15110f;
+  --muted: #5d5247;
+  --muted-soft: #85786c;
+  --accent: #cfab72;
+  --border: rgba(45, 36, 28, 0.18);
 }
 
 *,
@@ -34,10 +19,13 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans);
-  min-height: 100vh;
+  font-family: var(--font-sans), "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-kerning: normal;
+  letter-spacing: 0.01em;
   margin: 0;
+  min-height: 100vh;
   position: relative;
+  text-rendering: optimizeLegibility;
 }
 
 a {
@@ -46,10 +34,12 @@ a {
 }
 
 .font-display {
-  font-family: var(--font-display);
+  font-family: var(--font-display), "Prata", "Times New Roman", serif;
+  font-feature-settings: "liga" 1, "clig" 1;
+  font-weight: 400;
 }
 
 ::selection {
-  background: rgba(250, 204, 21, 0.4);
-  color: #020617;
+  background: rgba(207, 171, 114, 0.35);
+  color: #1a1613;
 }
